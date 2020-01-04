@@ -58,18 +58,41 @@ source /usr/local/bin/virtualenvwrapper.sh`
 
 
 ## Step2 安裝四輪小車
-參考網站
+組裝說明書https://drive.google.com/file/d/0B2qc-F3WpYxWcGtRbk5VdFBiTUU/view
+馬達的銅片朝內組裝
+
 
 ## Step3 安裝馬達
-參考網站
+參考網站https://casual-relaxed.blogspot.com/2016/02/raspberry-pi-wifi-car-note_11.html
+使用GPIO.BCM
+接上
+BCM 17
+BCM 18
+BCM 27
+BCM 23
 
 ## Step4 安裝dht22 
+參考網站https://www.itread01.com/content/1546191734.html
 
 ### 線路接法：
+使用GPIO.BCM
     VCC --> 3.3V
     GND --> GND
     DAT --> BCM 4
+    
+安裝套件步驟：
+`sudo apt-get update`
+
+`sudo apt-get install build-essential python-dev`
+
+`git clone https://github.com/adafruit/Adafruit_Python_DHT.git`
+
+`cd Adafruit_Python_DHT`
+
+`sudo python setup.py install`
 
 ## Step5 安裝風扇
+類似小車安裝馬達，只是只裝上一顆馬達
+接上BCM 12
 
 ## Step6 執行程式
