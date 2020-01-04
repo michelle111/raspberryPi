@@ -24,9 +24,9 @@
 ## Step4 安裝dht22 
 
 ### 線路接法：
-VCC --> 3.3V
-GND --> GND
-DAT --> BCM 4
+    VCC --> 3.3V
+    GND --> GND
+    DAT --> BCM 4
 
 ## Step5 安裝風扇
 
