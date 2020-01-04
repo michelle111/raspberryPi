@@ -5,7 +5,7 @@
 
 * 電池電源
 * 麵包板
-* 公母連接線
+* 杜邦線數根
 * 小型風扇
 * 單層自走車底盤(含四輪跑車胎+四馬達)
 * 直流馬達
@@ -13,6 +13,48 @@
 * DHT22溫濕度感測器模組
 
 ## Step1 安裝Flask
+
+參考網站 
+https://projects.raspberrypi.org/en/projects/python-web-server-with-flask/4
+https://medium.com/@ronm333/virtual-environments-on-the-raspberry-pi-ead158a72cd5
+
+找到python 3.5路徑
+`which python 3.5`
+
+在隱藏文件.profile中，設置VIRTUALENVWRAPPER_PYTHON的值
+`sudo nano ~/.profile`
+
+在檔案最底下打上
+`VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.7`
+
+運行.profile
+`source ~/.profile`
+
+安裝virtualenv
+`sudo pip3 install virtualenv`
+
+安裝virtualenvwrapper
+`sudo pip3 install virtualenvwrapper`
+
+編輯.profile文件
+`nano ~/.profile`
+
+在檔案最底下打上
+`export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh`
+
+運行.profile
+`source ~/.profile`
+
+命令mkvirtualenv現在可用於創建python虛擬環境
+`mkvirtualenv whatever -p /usr/bin/python3.7`
+
+創建進入虛擬環境
+`source ~/.profile`
+`workon whatever`
+
+安裝flask
+`pip3 install flask`
 
 
 ## Step2 安裝四輪小車
