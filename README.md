@@ -99,13 +99,13 @@ BCM 23
 ## Step6 程式碼部分
 
 在新創的環境中新增一個資料夾  
-`mkdir webapp`
+`mkdir webapp`  
 進入資料夾中  
-`cd webapp`
+`cd webapp`  
 
 在webapp裡新增一個app.py檔案  
-`nano app.py`
-app.py檔案內容
+`nano app.py`  
+app.py檔案內容  
 ```python
 # success
 import RPi.GPIO as GPIO
@@ -292,11 +292,11 @@ if __name__ == '__main__':
 
 接著存檔離開，並在剛剛的位置再新增一個templates資料夾  
 *注意一定要叫templates，才能執行等等要新增的html檔*  
-`mkdir templates`
+`mkdir templates`  
 進入資料夾裡  
-`cd templates`
+`cd templates`  
 新增index.html檔  
-`nano index.html`
+`nano index.html`  
 內容打上  
 ```
 <!Document html>
@@ -357,6 +357,6 @@ if __name__ == '__main__':
 
 ## Step7 執行程式
 接著退出templates資料夾  
-`cd ..`
+`cd ..`  
 再來就可以執行程式囉！  
-`python3 app.py`
+`python3 app.py`  
