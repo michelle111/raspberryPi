@@ -96,9 +96,17 @@ BCM 23
 風扇安裝一顆馬達  
 一邊接上GND，一邊接上BCM 12  
 
-## Step6 執行程式
+## Step6 程式碼部分
 
-```
+在新創的環境中新增一個資料夾  
+`mkdir webapp`
+進入資料夾中  
+`cd webapp`
+
+在webapp裡新增一個app.py檔案  
+`nano app.py`
+app.py檔案內容
+```python
 # success
 import RPi.GPIO as GPIO
 import time
@@ -281,3 +289,74 @@ if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
 
 ```
+
+接著存檔離開，並在剛剛的位置再新增一個templates資料夾  
+*注意一定要叫templates，才能執行等等要新增的html檔*  
+`mkdir templates`
+進入資料夾裡  
+`cd templates`
+新增index.html檔  
+`nano index.html`
+內容打上  
+```
+<!Document html>
+	<html>
+
+	<head>
+		<!--宣告此網頁為繁體中文-->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>樹莓派小車控制介面</title>
+	</head>
+
+	<body>
+		<!--參考http://blog.csdn.net/embbnux/article/details/40001129-->
+		<table border="0">
+			　<tr>
+				　<td></td>
+				　<td>
+					<form action="/forward" method=post>
+						<input type=submit value="前進" style="width:300px;height:300px;font-size:150px;">
+					</form>
+				</td>
+				<td></td>
+				　
+			</tr>
+			　<tr>
+				　<td>
+					<form action="/left" method=post>
+						<input type=submit value="左邊" style="width:300px;height:300px;font-size:150px;">
+					</form>
+				</td>
+				　<td>
+					<form action="/stop" method=post>
+						<input type=submit value="停止" style="width:300px;height:300px;font-size:150px;">
+					</form>
+				</td>
+				<td>
+					<form action="/right" method=post>
+						<input type=submit value="右邊" style="width:300px;height:300px;font-size:150px;">
+					</form>
+				</td>
+				　
+			</tr>　
+			<tr>
+				　<td></td>
+				　<td>
+					<form action="/back" method=post>
+						<input type=submit value="後退" style="width:300px;height:300px;font-size:150px;">
+					</form>
+				</td>
+				<td></td>
+				　
+			</tr>
+		</table>
+	</body>
+
+	</html>
+```
+
+## Step7 執行程式
+接著退出templates資料夾  
+`cd ..`
+再來就可以執行程式囉！  
+`python3 app.py`
