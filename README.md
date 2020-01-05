@@ -3,7 +3,8 @@
 
 ## 材料清單：
 
-* 電池電源
+* 電池*12
+* 行動電源
 * 麵包板
 * 杜邦線數根
 * 小型風扇
@@ -18,81 +19,265 @@
 https://projects.raspberrypi.org/en/projects/python-web-server-with-flask/4
 https://medium.com/@ronm333/virtual-environments-on-the-raspberry-pi-ead158a72cd5
 
-找到python 3.5路徑
+找到python 3.5路徑  
 `which python 3.5`
 
-在隱藏文件.profile中，設置VIRTUALENVWRAPPER_PYTHON的值
+在隱藏文件.profile中，設置VIRTUALENVWRAPPER_PYTHON的值  
 `sudo nano ~/.profile`
 
-在檔案最底下打上
+在檔案最底下打上  
 `VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.7`
 
-運行.profile
+運行.profile  
 `source ~/.profile`
 
-安裝virtualenv
+安裝virtualenv  
 `sudo pip3 install virtualenv`
 
-安裝virtualenvwrapper
+安裝virtualenvwrapper  
 `sudo pip3 install virtualenvwrapper`
 
-編輯.profile文件
+編輯.profile文件  
 `nano ~/.profile`
 
-在檔案最底下打上
+在檔案最底下打上  
 `export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh`
 
-運行.profile
+運行.profile  
 `source ~/.profile`
 
-命令mkvirtualenv現在可用於創建python虛擬環境
+命令mkvirtualenv現在可用於創建python虛擬環境  
 `mkvirtualenv whatever -p /usr/bin/python3.7`
 
-創建進入虛擬環境
+創建進入虛擬環境  
 `source ~/.profile`
 `workon whatever`
 
-安裝flask
+安裝flask  
 `pip3 install flask`
 
 
 ## Step2 安裝四輪小車
-組裝說明書https://drive.google.com/file/d/0B2qc-F3WpYxWcGtRbk5VdFBiTUU/view
+組裝說明書https://drive.google.com/file/d/0B2qc-F3WpYxWcGtRbk5VdFBiTUU/view  
 馬達的銅片朝內組裝
 
 
 ## Step3 安裝馬達
-參考網站https://casual-relaxed.blogspot.com/2016/02/raspberry-pi-wifi-car-note_11.html
-使用GPIO.BCM
-接上
-BCM 17
-BCM 18
-BCM 27
-BCM 23
+參考網站https://casual-relaxed.blogspot.com/2016/02/raspberry-pi-wifi-car-note_11.html  
+使用GPIO.BCM  
+接上  
+BCM 17  
+BCM 18  
+BCM 27  
+BCM 23  
 
 ## Step4 安裝dht22 
 參考網站https://www.itread01.com/content/1546191734.html
 
-### 線路接法：
-使用GPIO.BCM
-    VCC --> 3.3V
-    GND --> GND
-    DAT --> BCM 4
+### 線路接法：  
+使用GPIO.BCM  
+    VCC --> 3.3V  
+    GND --> GND  
+    DAT --> BCM 4  
     
-安裝套件步驟：
-`sudo apt-get update`
+安裝套件步驟：  
+`sudo apt-get update`  
 
-`sudo apt-get install build-essential python-dev`
+`sudo apt-get install build-essential python-dev`  
 
-`git clone https://github.com/adafruit/Adafruit_Python_DHT.git`
+`git clone https://github.com/adafruit/Adafruit_Python_DHT.git`  
 
-`cd Adafruit_Python_DHT`
+`cd Adafruit_Python_DHT`  
 
-`sudo python setup.py install`
+`sudo python setup.py install`  
 
-## Step5 安裝風扇
-類似小車安裝馬達，只是只裝上一顆馬達
-接上BCM 12
+## Step5 安裝風扇  
+風扇安裝一顆馬達  
+一邊接上GND，一邊接上BCM 12  
 
 ## Step6 執行程式
+
+```
+# success
+import RPi.GPIO as GPIO
+import time
+import Adafruit_DHT
+from flask import Flask, render_template
+
+
+# 設定GPIO相關設定
+# 車子部分
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(17, GPIO.OUT)
+GPIO.setup(18, GPIO.OUT)
+GPIO.setup(27, GPIO.OUT)
+GPIO.setup(23, GPIO.OUT)
+
+
+# 風扇部分
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(12, GPIO.OUT)
+
+p12 = GPIO.PWM(12, 38)
+
+
+app = Flask(__name__)
+
+# 連結到樹梅派的時候會打開網頁
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+# 定義三種風速
+
+
+def fanL():
+
+    GPIO.cleanup()
+
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
+    GPIO.setup(12, GPIO.OUT)
+    GPIO.setup(17, GPIO.OUT)
+
+    GPIO.setup(18, GPIO.OUT)
+    GPIO.setup(27, GPIO.OUT)
+    GPIO.setup(23, GPIO.OUT)
+
+    p12.start(20)
+
+    p12.ChangeFrequency(500)
+
+
+def fanM():
+
+    GPIO.cleanup()
+
+    GPIO.setmode(GPIO.BCM)
+
+    GPIO.setwarnings(False)
+    GPIO.setup(12, GPIO.OUT)
+    GPIO.setup(17, GPIO.OUT)
+    GPIO.setup(18, GPIO.OUT)
+    GPIO.setup(27, GPIO.OUT)
+    GPIO.setup(23, GPIO.OUT)
+
+    p12.start(60)
+
+    p12.ChangeFrequency(500)
+
+
+def fanH():
+
+    GPIO.cleanup()
+
+    GPIO.setmode(GPIO.BCM)
+
+    GPIO.setwarnings(False)
+    GPIO.setup(12, GPIO.OUT)
+    GPIO.setup(17, GPIO.OUT)
+    GPIO.setup(18, GPIO.OUT)
+    GPIO.setup(27, GPIO.OUT)
+    GPIO.setup(23, GPIO.OUT)
+
+    p12.start(90)
+
+    p12.ChangeFrequency(500)
+
+# 由dht22取得溫度
+
+
+def getDHTdata():
+    DHT22Sensor = Adafruit_DHT.DHT22
+    DHTpin = 4
+    hum, temp = Adafruit_DHT.read_retry(DHT22Sensor, DHTpin)
+    if hum is not None and temp is not None:
+        hum = round(hum)
+        temp = round(temp, 1)
+    return temp
+
+# 對於不同溫度執行不同的風速
+
+
+def DHTdata():
+    i = 1
+    while i == 1:
+        temp = getDHTdata()
+        print("temp=%f" % temp)
+
+        if temp < 20:
+            fanL()
+
+        elif temp >= 21 and temp < 23.2:
+            fanM()
+
+        elif temp > 23.5:
+            fanH()
+
+        time.sleep(1)
+
+
+# 車子行進方向設定
+# 左轉
+@app.route('/left', methods=['GET', 'POST'])
+def left():
+    GPIO.output(17, GPIO.HIGH)
+    GPIO.output(18, GPIO.LOW)
+    GPIO.output(27, GPIO.HIGH)
+    GPIO.output(23, GPIO.LOW)
+    DHTdata()
+    return render_template('index.html')
+# 每次下完指令，就會再回到首頁，下同
+
+
+@app.route("/back", methods=['GET', 'POST'])
+# 後退
+def back():
+    GPIO.output(17, GPIO.HIGH)
+    GPIO.output(18, GPIO.LOW)
+    GPIO.output(27, GPIO.LOW)
+    GPIO.output(23, GPIO.HIGH)
+    # DHTdata()
+    return render_template('index.html')
+
+
+# 停止
+@app.route("/stop", methods=['GET', 'POST'])
+def stop():
+    GPIO.output(17, GPIO.LOW)
+    GPIO.output(18, GPIO.LOW)
+    GPIO.output(27, GPIO.LOW)
+    GPIO.output(23, GPIO.LOW)
+    # DHTdata()
+    return render_template('index.html')
+
+
+# 前進
+@app.route("/forward", methods=['GET', 'POST'])
+def forward():
+    GPIO.output(17, GPIO.LOW)
+    GPIO.output(18, GPIO.HIGH)
+    GPIO.output(27, GPIO.HIGH)
+    GPIO.output(23, GPIO.LOW)
+    # DHTdata()
+
+    return render_template('index.html')
+
+# 右轉
+@app.route("/right", methods=['GET', 'POST'])
+def right():
+    GPIO.output(17, GPIO.LOW)
+    GPIO.output(18, GPIO.HIGH)
+    GPIO.output(27, GPIO.LOW)
+    GPIO.output(23, GPIO.HIGH)
+    # DHTdata()
+    return render_template('index.html')
+
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
+
+```
