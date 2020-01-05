@@ -1,7 +1,9 @@
 # Iot Project 風扇小車
 做一個能用手機或網頁操控移動的風扇小車。在四輪小車上面加上風扇，以溫度感測器感測溫度，依據溫度的不同有不同的轉速，節省能源，並可操控移動至期望的位置去吹風，幫忙散熱。
 
-DEMO影片
+DEMO影片  
+https://drive.google.com/file/d/18qEPOwq7aZV4-sg6xEfiW_yP-wJ8gtR7/view
+https://drive.google.com/file/d/18te8d8XGupB_p-GdDZsq6q4mxf7AjYxn/view  
 
 ## 材料清單：
 
