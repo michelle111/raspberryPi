@@ -22,7 +22,6 @@ GPIO.setup(12, GPIO.OUT)
 
 p12 = GPIO.PWM(12, 38)
 
-
 app = Flask(__name__)
 
 # 連結到樹梅派的時候會打開網頁
